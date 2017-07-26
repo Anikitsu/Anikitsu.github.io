@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Tetris</title>
+		<style>
+			input {
+	            -webkit-appearance: none;
+	            display: block;
+	            float: left;
+	            border-right: 1px solid #999;
+	            border-bottom: 1px solid #999;
+	            padding: 0px 0px;
+	            margin: 0;
+	            -webkit-background-clip: padding-box;
+	            background-color:white ;
+	        }
+	        label {
+	            display: none;
+	            display: block;
+	            clear: both;
+	        }
+		</style>
+	</head>
+	<body>
+		<div id="zuo" style="position: absolute; top: 50px; left: 50px; width: 300px;">
+			<br />
+			<p style="font-size: 30px;">Score:</p>
+			<p id="board" style="font-size: 50px;"> </p>
+			<br /><br />
+			<p>Keys：</p>
+			<br />
+			<p>Normal Mode:  &#8592 &#8593 &#8594 &#8595</p>
+			<p>&#160&#160&#9650&#160&#160Mode:  &#8592 &#8593 &#8594 &#8595&#160&#160W S A D&#160&#160Q E</p>
+		</div>
+		<div id="map" style="margin: auto; position: absolute; top: 50px; left: 350px;">
+			<canvas id="disp" width="800" height="800"></canvas>
+		</div>
+		<div id="you" style="position: absolute; top: 50px; left: 1200px;">
+			<br />
+			<p id="button1"> <input type="button" value=" Start " onclick="main()" style="font-size:50px;"/> <label></label></p>
+			<br />
+			<p id="button2"> <input type="button" value=" Reset " onclick="ini()" style="font-size:50px;"/> <label></label></p>
+			<br />
+		</div>
+		
+		<script type="text/javascript">
+			var mode=2;
+			var xh=15, yw=10, zd=10;
+			var dy=new Array(xh);
+			var st=new Array(xh);
+			var tmp=new Array(xh);
+			var keycom={"38":"rotate()","40":"down()","37":"left()","39":"right()"};
+			var score=0;
+			var run,fram,cam;
+			var context=document.getElementById("disp").getContext("2d");
+			var angla=0, anglb=0;
+			context.translate(400,400);
+			for (x=0;x<xh;x++) {
+				dy[x]= new Array(yw);
+				st[x]= new Array(yw);
+				tmp[x]= new Array(yw);
+				for (y=0;y<yw;y++) {
+					dy[x][y]=new Array(zd);
+					st[x][y]=new Array(zd);
+					tmp[x][y]=new Array(zd);
+					for (z=0;z<zd;z++) {
+						dy[x][y][z]=0;
+						st[x][y][z]=0;
+						tmp[x][y][z]=0;
+					}}}
+			display();
+			document.getElementById("board").innerHTML=score;
+			function ini(){
+				mode=2;
+				clearInterval(run);
+				clearInterval(fram);
+				score=0;
+				for (x=0;x<xh;x++) {
+					for (y=0;y<yw;y++) {
+						for (z=0;z<zd;z++) {
+							dy[x][y][z]=0;
+							st[x][y][z]=0;
+							tmp[x][y][z]=0;
+						}}}
+				angla=0;anglb=0;
+				display();
+				document.getElementById("button1").innerHTML='<input type="button" value=" Start " onclick="main()" style="font-size:50px;"/> <label></label>';
+				document.getElementById("board").innerHTML=score;
+			}
+			function gameover(){
+				document.onkeydown=null;
+				clearInterval(run);
+				alert("Game Over");
+				ini();
+			}
+			function main(){
+				document.onkeydown=function(e){eval(keycom[(e?e:event).keyCode]);};
+				document.getElementById("button1").innerHTML='<input type="button" value=" Mode:&#9650 " onclick="mode2to3()" style="font-size:50px;"/> <label></label>';
+				nextround();
+				run=setInterval("down()",1000);
+				fram=setInterval("display()",20);
+			}
+			function mode2to3(){
+				mode=3;
+				keycom={"38":"rotate()","40":"down()","37":"left()","39":"right()","81":"far()","69":"near()","87":"anglbadd()","83":"anglbmis()","65":"anglaadd()","68":"anglamis()"};
+				cam=setInterval("camera()",20);
+				document.getElementById("button1").innerHTML='<input type="button" value=" Normal Mode " onclick="mode3to2()" style="font-size:50px;"/> <label></label>';
+			}
+			function mode3to2(){
+				mode=2;
+				keycom={"38":"rotate()","40":"down()","37":"left()","39":"right()"};
+				angla=0; anglb=0;
+				document.getElementById("button1").innerHTML='<input type="button" value=" Mode:&#9650 " onclick="mode2to3()" style="font-size:50px;"/> <label></label>';
+				for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd-1;z++) {
+							if (dy[x][y][z]==1) {dy[x][y][zd-1]=1; dy[x][y][z]=0;}
+							if (st[x][y][z]==1) {st[x][y][zd-1]=1; st[x][y][z]=0;}
+				}}}
+				setTimeout("goal()",1000);
+			}
+			function camera(){if (angla<=45&&anglb<=30) {angla+=1.5; anglb+=1;} else{clearInterval(cam);}}
+			function newtris(){
+				var roll=0;
+				roll=Math.ceil(Math.random()*7);
+				var tris=new Array(2);
+				tris[0]=new Array(4);
+				tris[1]=new Array(4);
+				for (i=0;i<4;i++) {tris[0][i]=0;tris[1][i]=0;}
+				switch (roll){
+					case 1:
+						tris[0][0]=1; tris[0][1]=1; tris[0][2]=1; tris[0][3]=1;
+						return tris;
+					case 2:
+						tris[0][1]=1; tris[1][1]=1; tris[1][2]=1; tris[1][3]=1;
+						return tris;
+					case 3:
+						tris[0][2]=1; tris[1][0]=1; tris[1][1]=1; tris[1][2]=1;
+						return tris;
+					case 4:
+						tris[0][2]=1; tris[0][3]=1; tris[1][1]=1; tris[1][2]=1;
+						return tris;
+					case 5:
+						tris[0][0]=1; tris[0][1]=1; tris[1][1]=1; tris[1][2]=1;
+						return tris;
+					case 6:
+						tris[0][1]=1; tris[1][0]=1; tris[1][1]=1; tris[1][2]=1;
+						return tris;
+					default:
+						tris[0][1]=1;	tris[0][2]=1; tris[1][1]=1;	tris[1][2]=1;
+						return tris;}}
+			function nextround(){
+				goal();
+				var tristmp=newtris();
+				for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[x][y][z]=0;}}}
+				if (mode==2){
+					for (y=0;y<=3;y++) {tmp[0][y+3][zd-1]=tristmp[0][y]; tmp[1][y+3][zd-1]=tristmp[1][y];}
+				} else{
+					for (y=0;y<=3;y++) {tmp[0][y+3][zd-1]=tristmp[0][y]; tmp[1][y+3][zd-1]=tristmp[1][y];}
+				}
+				switch (chktop()){
+						case 2:
+							gameover();
+							break;
+						case 1:
+							for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {dy[0][y][z]=tmp[1][y][z];}}
+							gameover();
+							break;
+						default:
+							for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {dy[x][y][z]=tmp[x][y][z];}}}
+							break;
+				}
+			}
+			function down(){
+				var sumxh=0;
+				for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {sumxh+=dy[xh-1][y][z];}}
+				if(sumxh==0){
+					for (x=xh-2;x>=0;x--) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[x+1][y][z]=dy[x][y][z];}}}
+					for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[0][y][z]=0;}}
+				}
+				for (z=0;z<zd;z++) {for (x=xh-1;x>0;x--) {for (y=0;y<yw;y++) {
+							if (dy[xh-1][y][z]==1) {
+								for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {if (dy[x][y][z]==1) {st[x][y][z]=1;}}}}
+								nextround(); return ;}
+							}}}
+			chkrslt();
+			}
+			function left(){
+				var sumy0=0;
+				for (x=0;x<xh;x++) {for (z=0;z<zd;z++) {sumy0+=dy[x][0][z];}}
+				if (sumy0==0) {
+					for (x=0;x<xh;x++) {
+						for (z=0;z<zd;z++) {
+							for (y=0;y<=yw-2;y++) {tmp[x][y][z]=dy[x][y+1][z];}
+							tmp[x][yw-1][z]=0;}}
+				chkrslt();}
+			}
+			function right(){
+				var sumyw=0;
+				for (x=0;x<xh;x++) {for (z=0;z<zd;z++) {sumyw+=dy[x][yw-1][z];}}
+				if (sumyw==0) {
+					for (x=0;x<xh;x++) {
+						for (z=0;z<zd;z++) {
+							for (y=yw-1;y>0;y--) {tmp[x][y][z]=dy[x][y-1][z];}
+							tmp[x][0][z]=0;}}
+				chkrslt();}
+			}
+			function near(){
+				var sumz0=0;
+				for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {sumz0+=dy[x][y][0];}}
+				if (sumz0==0){
+					for (x=0;x<xh;x++) {
+						for (y=0;y<yw;y++) {
+							for (z=0;z<=zd-2;z++) {
+								tmp[x][y][z]=dy[x][y][z+1];}
+							tmp[x][y][zd-1]=0;}
+						}
+				chkrslt();}
+			}
+			function far(){
+				var sumzd=0;
+				for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {sumzd+=dy[x][y][zd-1];}}
+				if (sumzd==0){
+					for (x=0;x<xh;x++) {
+						for (y=0;y<yw;y++) {
+							for (z=zd-1;z>0;z--) {
+								tmp[x][y][z]=dy[x][y][z-1];}
+							tmp[x][y][0]=0;}}
+				chkrslt();}
+			}
+			function rotate(){
+				var sum22=0, sum23=0, sum32=0, sum14=0, sum41=0;
+				var rtt=new Array(xh);
+				for (x=0;x<xh;x++) {rtt[x]= new Array(yw);for (y=0;y<yw;y++) {rtt[x][y]=new Array(zd);for (z=0;z<zd;z++) {rtt[x][y][z]=0;}}}
+			lbl:	for (z=0;z<zd;z++) {
+					for (x=xh-1;x>=0;x--) {
+						for (y=0;y<yw;y++) {
+							if (x>=1 && y<=yw-2) {
+								sum22=dy[x][y][z]+dy[x-1][y][z]+dy[x][y+1][z]+dy[x-1][y+1][z];
+								if (sum22==4) {for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[x][y][z]=dy[x][y][z];}}} break lbl;}}
+							if (x>=1 && y<=yw-3) {
+								sum23=dy[x][y][z]+dy[x][y+1][z]+dy[x][y+2][z]+dy[x-1][y][z]+dy[x-1][y+1][z]+dy[x-1][y+2][z];
+								if (sum23==4) {
+									if (x==1) {
+										rtt[x+1][y+1][z]=dy[x][y][z]; rtt[x][y+1][z]=dy[x][y+1][z]; rtt[x-1][y+1][z]=dy[x][y+2][z];
+										rtt[x+1][y][z]=dy[x-1][y][z]; rtt[x][y][z]=dy[x-1][y+1][z]; rtt[x-1][y][z]=dy[x-1][y+2][z];
+									} else{
+										rtt[x][y+1][z]=dy[x][y][z]; rtt[x-1][y+1][z]=dy[x][y+1][z]; rtt[x-2][y+1][z]=dy[x][y+2][z];
+										rtt[x][y][z]=dy[x-1][y][z]; rtt[x-1][y][z]=dy[x-1][y+1][z]; rtt[x-2][y][z]=dy[x-1][y+2][z];
+									}
+								for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[x][y][z]=rtt[x][y][z];}}} break lbl;}}
+							if (x>=2 && y<=yw-2) {
+								sum32=dy[x][y][z]+dy[x-1][y][z]+dy[x-2][y][z]+dy[x][y+1][z]+dy[x-1][y+1][z]+dy[x-2][y+1][z];
+								if (sum32==4) {
+									if (y==yw-2) {
+										rtt[x][y+1][z]=dy[x][y][z]; rtt[x][y][z]=dy[x-1][y][z]; rtt[x][y-1][z]=dy[x-2][y][z];
+										rtt[x-1][y+1][z]=dy[x][y+1][z]; rtt[x-1][y][z]=dy[x-1][y+1][z]; rtt[x-1][y-1][z]=dy[x-2][y+1][z];
+									} else{
+										rtt[x][y+2][z]=dy[x][y][z]; rtt[x][y+1][z]=dy[x-1][y][z]; rtt[x][y][z]=dy[x-2][y][z];
+										rtt[x-1][y+2][z]=dy[x][y+1][z]; rtt[x-1][y+1][z]=dy[x-1][y+1][z]; rtt[x-1][y][z]=dy[x-2][y+1][z];
+									}
+								for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[x][y][z]=rtt[x][y][z];}}} break lbl;}}
+							if (y<=yw-4) {
+								sum14=dy[x][y][z]+dy[x][y+1][z]+dy[x][y+2][z]+dy[x][y+3][z];
+								if (sum14==4) {
+									if (x<=3) {
+										rtt[0][y][z]=1; rtt[1][y][z]=1; rtt[2][y][z]=1; rtt[3][y][z]=1;
+									} else{
+										rtt[x][y][z]=1; rtt[x-1][y][z]=1; rtt[x-2][y][z]=1; rtt[x-3][y][z]=1;
+									}
+								for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[x][y][z]=rtt[x][y][z];}}} break lbl;}}
+							if (x>=3) {
+								sum41=dy[x][y][z]+dy[x-1][y][z]+dy[x-2][y][z]+dy[x-3][y][z];
+								if (sum41==4) {
+									if (y>=yw-4) {
+										rtt[x][yw-1][z]=1; rtt[x][yw-2][z]=1; rtt[x][yw-3][z]=1; rtt[x][yw-4][z]=1;
+									} else{
+										rtt[x][y][z]=1; rtt[x][y+1][z]=1; rtt[x][y+2][z]=1; rtt[x][y+3][z]=1;
+									}
+								for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[x][y][z]=rtt[x][y][z];}}} break lbl;}}
+						}}}
+				chkrslt();}
+			function chk(){ //0: check通过 1: 非落底碰撞 2: 落底碰撞
+				var bmrslt=0;
+			lbo:	for (z=0;z<zd;z++) {
+					for (x=xh-1;x>0;x--) {
+						for (y=0;y<yw;y++) {
+							if (st[x][y][z]==1) {if (tmp[x][y][z]==1) {if (x>0) {if (dy[x-1][y][z]==1) {bmrslt=2;break lbo;} else{bmrslt=1;}}}}
+							}}}
+				return bmrslt;}
+			function chktop(){ //0: check通过 1: x1 gameover 2: x0 gameover
+				var toprslt=0;
+				if (mode==2) {
+						for (y=3;y<=6;y++) {
+							if (st[0][y][zd-1]==1) {if (tmp[1][y][zd-1]==1) {return 2;} else{if (tmp[0][y][zd-1]==1) {toprslt=1;}}}
+							if (st[1][y][[zd-1]==1]) {if (tmp[1][y][zd-1]==1) {toprslt=1;}}
+						}
+				} else{
+						for (y=3;y<=6;y++) {
+							if (st[0][y][zd-1]==1) {if (tmp[1][y][zd-1]==1) {return 2;} else{if (tmp[0][y][zd-1]==1) {toprslt=1;}}}
+							if (st[1][y][[zd-1]==1]) {if (tmp[1][y][zd-1]==1) {toprslt=1;}}
+						}
+				}
+			return toprslt;}
+			function chkrslt(){
+				var rslt=chk();
+				switch (rslt){
+					case 0:
+						for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {dy[x][y][z]=tmp[x][y][z];}}}
+						break;
+					case 2:
+						for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {if (dy[x][y][z]==1) {st[x][y][z]=1;}}}}
+						nextround();
+						break;
+					default:
+						for (x=0;x<xh;x++) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {tmp[x][y][z]=dy[x][y][z];}}}
+						break;}
+			}
+			function goal(){
+				var sumzd=0;
+				for (r=xh-1;r>0;r--) {
+					sumzd=0;
+					for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {sumzd+=st[r][y][z];}}
+					if (mode==2){if (sumzd==yw) {
+							for (x=r;x>0;x--) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {st[x][y][z]=st[x-1][y][z];}}}
+							for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {st[0][y][z]=0;}}
+							score+=1;
+							goal();}
+					} else{if (sumzd==yw*zd) {
+							for (x=r;x>0;x--) {for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {st[x][y][z]=st[x-1][y][z];}}}
+							for (y=0;y<yw;y++) {for (z=0;z<zd;z++) {st[0][y][z]=0;}}
+							score+=100;
+							goal();}
+					}
+				}
+				document.getElementById("board").innerHTML=score;
+			}
+			function anglaadd(){if (angla<=89) {angla+=1;} else{angla=90;}}
+			function anglbadd(){if (anglb<=89) {anglb+=1;} else{anglb=90;}}
+			function anglamis(){if (angla>=1) {angla-=1;} else{angla=0;}}
+			function anglbmis(){if (anglb>=1) {anglb-=1;} else{anglb=0;}}
+			function display(){
+				var canh=600, canw=400, cand=400;
+				var boxh=canh/xh;
+				var boxw=canw/yw;
+				var boxd=cand/zd;
+				var sina=Math.sin(angla*Math.PI/180);
+				var sinb=Math.sin(anglb*Math.PI/180);
+				var cosa=Math.cos(angla*Math.PI/180);
+				var cosb=Math.cos(anglb*Math.PI/180);
+				var devw=(cosa*canw-sina*cand)/2;
+				var devd=(cosa*cand-sina*canw)/2;
+				var devh=(cosb*canh)/2;
+				var dvbw=(cosa*boxw-sina*boxd)/2;
+				var dvbd=(cosa*boxd-sina*boxw)/2;
+				var dvbh=(cosb*boxh)/2;
+				var posh, posw, posd, posx, posy, posz;
+				context.strokeStyle="black";
+				context.lineWidth=2;
+				context.fillStyle="white";
+				context.fillRect(-400,-400,800,800);
+				context.beginPath();
+				context.moveTo(-devw			,	sinb*(sina*canw+devd)	+devh);
+				context.lineTo(cosa*canw-devw	,	sinb*(devd)				+devh);
+				context.lineTo(devw				,	sinb*(-cosa*cand+devd)	+devh);
+				context.lineTo(-sina*cand-devw	,	sinb*(-devd)			+devh);
+				context.lineTo(-devw			,	sinb*(sina*canw+devd)	+devh);
+				context.moveTo(cosa*canw-devw	,	sinb*(devd)				-devh);
+				context.lineTo(devw				,	sinb*(-cosa*cand+devd)	-devh);
+				context.lineTo(-sina*cand-devw	,	sinb*(-devd)			-devh);
+				context.moveTo(cosa*canw-devw	,	sinb*(devd)				+devh);
+				context.lineTo(cosa*canw-devw	,	sinb*(devd)				-devh);
+				context.moveTo(devw				,	sinb*(-cosa*cand+devd)	+devh);
+				context.lineTo(devw				,	sinb*(-cosa*cand+devd)	-devh);
+				context.moveTo(-sina*cand-devw	,	sinb*(-devd)			+devh);
+				context.lineTo(-sina*cand-devw	,	sinb*(-devd)			-devh);
+				context.stroke();
+				context.closePath();
+				for (x=xh-1;x>=0;x--) {for (y=yw-1;y>=0;y--) {for (z=zd-1;z>=0;z--) {
+					posx=boxh*(x-(xh-1)/2);
+					posy=boxw*(y-(yw-1)/2);
+					posz=boxd*(z-(zd-1)/2);
+					posh=cosb*posx; 
+					posw=cosa*posy-sina*posz;
+					posd=sina*posy+cosa*posz;
+					if (dy[x][y][z]==1) {
+						context.strokeStyle="#999999";
+						context.fillStyle="#dddddd";
+						context.beginPath();
+						context.moveTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+cosb*canh/2);
+						context.lineTo(cosa*boxw-dvbw	+posw,	sinb*(dvbd				-posd)+cosb*canh/2);
+						context.lineTo(dvbw				+posw,	sinb*(-cosa*boxd+dvbd	-posd)+cosb*canh/2);
+						context.lineTo(-sina*boxd-dvbw	+posw,	sinb*(-dvbd				-posd)+cosb*canh/2);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+cosb*canh/2);
+						context.fill();
+						context.stroke();
+						context.closePath();
+					}
+				}}}
+				for (x=xh-1;x>=0;x--) {for (y=yw-1;y>=0;y--) {for (z=zd-1;z>=0;z--) {
+					posx=boxh*(x-(xh-1)/2);
+					posy=boxw*(y-(yw-1)/2);
+					posz=boxd*(z-(zd-1)/2);
+					posh=cosb*posx; 
+					posw=cosa*posy-sina*posz;
+					posd=sina*posy+cosa*posz;
+					if (st[x][y][z]==1) {
+						context.strokeStyle="black";
+						context.fillStyle="#555555";
+						context.beginPath();
+						context.moveTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+dvbh+posh);
+						context.lineTo(cosa*boxw-dvbw	+posw,	sinb*(dvbd				-posd)+dvbh+posh);
+						context.lineTo(cosa*boxw-dvbw	+posw,	sinb*(dvbd				-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+dvbh+posh);
+						context.fill();
+						context.moveTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+dvbh+posh);
+						context.lineTo(-sina*boxd-dvbw	+posw,	sinb*(-dvbd				-posd)+dvbh+posh);
+						context.lineTo(-sina*boxd-dvbw	+posw,	sinb*(-dvbd				-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+dvbh+posh);
+						context.fill();
+						context.moveTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)-dvbh+posh);
+						context.lineTo(cosa*boxw-dvbw	+posw,	sinb*(dvbd				-posd)-dvbh+posh);
+						context.lineTo(dvbw				+posw,	sinb*(-cosa*boxd+dvbd	-posd)-dvbh+posh);
+						context.lineTo(-sina*boxd-dvbw	+posw,	sinb*(-dvbd				-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)-dvbh+posh);
+						context.fill();
+						context.stroke();
+						context.closePath();
+					}
+					if (dy[x][y][z]==1) {
+						context.strokeStyle="black";
+						context.fillStyle="#aaaaaa";
+						context.beginPath();
+						context.moveTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+dvbh+posh);
+						context.lineTo(cosa*boxw-dvbw	+posw,	sinb*(dvbd				-posd)+dvbh+posh);
+						context.lineTo(cosa*boxw-dvbw	+posw,	sinb*(dvbd				-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+dvbh+posh);
+						context.fill();
+						context.moveTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+dvbh+posh);
+						context.lineTo(-sina*boxd-dvbw	+posw,	sinb*(-dvbd				-posd)+dvbh+posh);
+						context.lineTo(-sina*boxd-dvbw	+posw,	sinb*(-dvbd				-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)+dvbh+posh);
+						context.fill();
+						context.moveTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)-dvbh+posh);
+						context.lineTo(cosa*boxw-dvbw	+posw,	sinb*(dvbd				-posd)-dvbh+posh);
+						context.lineTo(dvbw				+posw,	sinb*(-cosa*boxd+dvbd	-posd)-dvbh+posh);
+						context.lineTo(-sina*boxd-dvbw	+posw,	sinb*(-dvbd				-posd)-dvbh+posh);
+						context.lineTo(-dvbw			+posw,	sinb*(sina*boxw+dvbd	-posd)-dvbh+posh);
+						context.fill();
+						context.stroke();
+						context.closePath();
+					}
+					
+				}}}
+			}
+		</script>
+		
+	</body>
+</html>

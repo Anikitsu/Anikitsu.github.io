@@ -227,14 +227,14 @@
 	}
 	#bgie {
 		background-image: url(images/bgblack.png);
-		background-repeat: repeat;
+		background-repeat: no-repeat;
 		background-size:  100% 100%;
 		height: 100%;
-		left: 0;
 		opacity: 1;
 		position: fixed;
 		top: 0;
-		width: 100%
+		left: 0;
+		width: 200%
 		/*background-color: #348cb2;*/
 	}
 	@-moz-keyframes bg {
@@ -892,9 +892,6 @@
 			body, input, select, textarea {
 				font-size: 11pt;
 			}
-			#main nav {
-				left: 1em;
-			}
 			
 		/* BG */
 
@@ -978,16 +975,17 @@
 			font-size: 1em;
 		}
 
-		#header nav {
-			font-size: 1em;
+		#main nav {
+			left: 1em;
+			font-size: 10pt;
 		}
 
-			#header nav a:hover {
-				font-size: 1em;
+			#main nav a:hover {
+				font-size: 11pt;
 			}
 
-			#header nav a:active {
-				font-size: 1em;
+			#main nav a:active {
+				font-size: 10pt;
 			} }
 
 /* Mobile (Portrait) */
@@ -1068,6 +1066,15 @@
 
 	/* Header */
 
-		#header nav {
+		#main nav {
+			left: 1em;
+			font-size: 7pt;
+		}
 
-		} }
+			#main nav a:hover {
+				font-size: 8pt;
+			}
+
+			#main nav a:active {
+				font-size: 7pt;
+			}  }

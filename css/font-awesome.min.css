@@ -2263,7 +2263,20 @@
 .fa-medium:before {
 	content: "\f23a"
 }
+
+.fa-abyss:before {
+	content: "A";
+}
+
+.fa-beacon:before {
+	content: "B";
+}
+
+.fa-cooperation:before {
+	content: "C";
+}
+
+
 .fa-demo:before {
 	content: "D"
-	
 }

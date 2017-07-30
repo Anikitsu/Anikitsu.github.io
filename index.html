@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="css/main.css" />
+		<link id="headeranimat" rel="stylesheet" href="css/headeranimation.css" />
 	</head>
 	<body class="loading">
 		<div id="wrapper">
@@ -12,32 +13,47 @@
 			<div id="bg"></div>
 			<div id="overlay"></div>
 			<div id="main">
-				<nav>
+				<nav id="naver">
 					<ul>
-						<li><a href="https://github.com/Aniki-Chen" class="icon fa-github" title="Github"></a></li>
-						<li><a href="http://weibo.com/u/1237000977" class="icon fa-weibo" title="微博"></a></li>
-						<li><a href="mailto:chenzhzh45@gmail.com" class="icon fa-envelope-o" title="Email"></a></li>
-						<li><a href="" class="icon fa-demo" title="DEMO"></a></li>
+						<li><a id="navhome" class="icon fa-home" title="HOME"></a></li>
+						<li><a id="nava" class="icon fa-abyss" title="Abyss"></a></li>
+						<li><a id="navb" class="icon fa-beacon" title="Beacon"></a></li>
+						<li><a id="navc" class="icon fa-cooperation" title="Cooperation"></a></li>
+						<li><a id="navd" class="icon fa-demo" title="DEMO"></a></li>
 					</ul>
 				</nav>
 				<header id="header">
 					<h1>Aniki-Chen</h1>
 					<p>This page still under constructing</p>
+					<nav id="lister">
+						<ul>
+							<li><a href="https://github.com/Aniki-Chen" class="icon fa-github" title="Github"></a></li>
+							<li><a href="http://weibo.com/u/1237000977" class="icon fa-weibo" title="微博"></a></li>
+							<li><a href="mailto:chenzhzh45@gmail.com" class="icon fa-envelope-o" title="Email"></a></li>
+							
+						</ul>
+					</nav>
 					<p>Using IE/Edge browse this page would be strange</p>
-					<a class="featured-post-link" onclick="changebg()" class="icon" title=""><img class="featured-post-image" src="" alt="change color" /></a>
+					<a class="featured-post-link" onclick="changebg()" class="icon" title=""><img class="featured-post-image" alt="change color" /></a>
 					
 				</header>
 			</div>
 		</div>
 		<script>
 			
-			window.onload = function() { document.body.className = ''; }
+			window.onload = function() { document.body.className = ''; setTimeout("clearheaderanimation()",5000)}
 			window.ontouchmove = function() { return false; }
-			window.onorientationchange = function() { document.body.scrollTop = 0; }
 			function changebg() {
 				document.getElementById("bgcolor").style.backgroundColor="#FF0000";
 			}
+			
+			function clearheaderanimation(){
+				document.getElementById("headeranimat").disabled=true;
+				document.getElementById("header").style.opacity=1;
+			}
 		</script>
 		<script type="text/javascript" src="js/ie/bgie.js" ></script>
+		<script type="text/javascript" src="js/pagescroll.js" ></script>
+		<script type="text/javascript" src="js/pagescode.js" ></script>
 	</body>
 </html>

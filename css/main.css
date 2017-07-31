@@ -72,14 +72,23 @@
 		background: #fff;
 		/*overflow: hidden;*/
 	}
-
-		body.loading * {
+	#loader {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+	}
+		/*#header {
+			opacity: 1 !important;
+			content: url(images/PTS.png);
+			z-index: 10;
+		}*/
+		body.loading div {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;
 			-ms-animation: none !important;
 			animation: none !important;
 		}
-
+		
 	a {
 		-moz-transition: border-color 0.2s ease-in-out;
 		-webkit-transition: border-color 0.2s ease-in-out;

@@ -8,6 +8,8 @@
 		<link id="headeranimat" rel="stylesheet" href="css/headeranimation.css" />
 	</head>
 	<body class="loading">
+		<ul id="loader" class="icon fa-spinner fa-spin fa-2x" style="opacity: 1;color: #2B2B2B;"></ul>
+		
 		<div id="wrapper">
 			<div id="bgcolor"></div>
 			<div id="bg"></div>
@@ -23,26 +25,18 @@
 					</ul>
 				</nav>
 				<header id="header">
-					<h1>Aniki-Chen</h1>
-					<p>This page still under constructing</p>
-					<nav id="lister">
-						<ul>
-							<li><a href="https://github.com/Aniki-Chen" class="icon fa-github" title="Github"></a></li>
-							<li><a href="http://weibo.com/u/1237000977" class="icon fa-weibo" title="微博"></a></li>
-							<li><a href="mailto:chenzhzh45@gmail.com" class="icon fa-envelope-o" title="Email"></a></li>
-							
-						</ul>
-					</nav>
-					<p>Using IE/Edge browse this page would be strange</p>
-					<a class="featured-post-link" onclick="changebg()" class="icon" title=""><img class="featured-post-image" alt="change color" /></a>
-					
+
 				</header>
 			</div>
 		</div>
 		<script>
-			
-			window.onload = function() { document.body.className = ''; setTimeout("clearheaderanimation()",5000)}
-//			window.ontouchmove = function() { return false; }
+			window.onload = function() {
+				document.body.className = '';
+				inimousewheel();
+				document.getElementById("header").innerHTML=pages[0];
+				setTimeout("clearheaderanimation()",4000)
+			}
+			window.ontouchmove = function() { return false; }
 			function changebg() {
 				document.getElementById("bgcolor").style.backgroundColor="#FF0000";
 			}
@@ -50,6 +44,8 @@
 			function clearheaderanimation(){
 				document.getElementById("headeranimat").disabled=true;
 				document.getElementById("header").style.opacity=1;
+				var clearloader=document.getElementById("loader");
+				clearloader.remove(clearloader.selectedIndex);
 			}
 		</script>
 		<script type="text/javascript" src="js/ie/bgie.js" ></script>

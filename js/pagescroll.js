@@ -3,7 +3,7 @@ var currentnum=0;
 var headerpos=0;
 var headeropa=1;
 document.getElementById(currentpage).style.backgroundColor="rgba(255, 255, 255, 0.35)";
-inimousewheel();
+
 
 function pagefocus(aimpage){
 	document.getElementById(currentpage).style.backgroundColor="transparent";

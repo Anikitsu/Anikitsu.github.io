@@ -74,14 +74,13 @@
 	}
 	#loader {
 		position: fixed;
-		top: 50%;
+		margin-left: -0.35em;
+		top: 45%;
 		left: 50%;
 	}
-		/*#header {
-			opacity: 1 !important;
-			content: url(images/PTS.png);
-			z-index: 10;
-		}*/
+		body.loading {
+			text-align: center;
+		}
 		body.loading div {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;

@@ -31,20 +31,18 @@
 		<script>
 			window.onload = function() {
 				document.body.className = '';
-
 				document.getElementById("header").innerHTML=pages[0];
-				setTimeout("clearheaderanimation()",5000)
+				setTimeout('document.getElementById("loader").style.opacity=0',2500);
+				setTimeout("clearheaderanimation()",3500);
 			}
 			window.ontouchmove = function() { return false; }
-			function changebg() {
-				document.getElementById("bgcolor").style.backgroundColor="#FF0000";
-			}
 			function clearheaderanimation(){
 				document.getElementById("headeranimat").disabled=true;
 				document.getElementById("header").style.opacity=1;
 			//清除loading图标
+				var hbody=document.body;
 				var clearloader=document.getElementById("loader");
-				clearloader.remove(clearloader.selectedIndex);
+				hbody.removeChild(clearloader);
 			//ini滚动与翻页
 				inimousewheel();
 				ininaver();

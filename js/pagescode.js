@@ -31,6 +31,9 @@ function langswitch (){
 		switcher.innerHTML=' En'
 		lang="En"
 	}
+	clearnaver();
+	clearmousewheel();
+	clearswitcher();
 	scrollprogressa(false,true);
 }
  function iniswitcher (){

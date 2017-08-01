@@ -3,17 +3,17 @@ var currentnum=0;
 var aimnum=0;
 var headerpos=0;
 var headeropa=1;
-document.getElementById(currentpage).style.backgroundColor="rgba(255, 255, 255, 0.35)";
-
 var colors = new Array(
 	[0,127,127],
-	[0,0,255],
+	[0,63,255],
 	[127,0,255],
 	[255,0,0],
 	[255,127,0]);
 var cR=colors[0][0], cG=colors[0][1], cB=colors[0][2];
 var currentcolor="rgb("+cR+","+cG+","+cB+")";
+
 document.getElementById("bgcolor").style.backgroundColor=currentcolor;
+document.getElementById(currentpage).style.backgroundColor="rgba(255, 255, 255, 0.35)";
 
 function bgfader () {
 	if (cR==colors[aimnum][0] && cG==colors[aimnum][1] && cB==colors[aimnum][2]) {

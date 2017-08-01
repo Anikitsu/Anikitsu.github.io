@@ -78,9 +78,6 @@
 		top: 45%;
 		left: 50%;
 	}
-		body.loading {
-			text-align: center;
-		}
 		body.loading div {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;
@@ -223,7 +220,6 @@
 		opacity: 1;
 		position: fixed;
 		top: 0;
-		/*background-color: #348cb2;*/
 	}
 	#bgcolor {
 		position: absolute;
@@ -231,7 +227,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: #348cb2;
+		background-color: rgb(0,127,127);
 		opacity: 1;
 		z-index: -1;
 	}
@@ -245,7 +241,6 @@
 		top: 0;
 		left: 0;
 		width: 200%
-		/*background-color: #348cb2;*/
 	}
 	@-moz-keyframes bg {
 		0% {
@@ -467,6 +462,33 @@
 		}
 	}
 		
+		#langs {
+
+			font-size: 2em;
+			position: fixed;
+			right: 1em;
+			top: 1em;
+		}
+			#langs a {
+				-moz-animation: naver-icons 0.5s ease-in-out forwards;
+				-webkit-animation: naver-icons 0.5s ease-in-out forwards;
+				-ms-animation: naver-icons 0.5s ease-in-out forwards;
+				animation: naver-icons 0.5s ease-in-out forwards;
+				-moz-backface-visibility: hidden;
+				-webkit-backface-visibility: hidden;
+				-ms-backface-visibility: hidden;
+				backface-visibility: hidden;
+				-moz-transform: translate3d(0,0,0);
+				-webkit-transform: translate3d(0,0,0);
+				-ms-transform: translate3d(0,0,0);
+				transform: translate3d(0,0,0);
+				-moz-animation-delay: 3s;
+				-webkit-animation-delay: 3s;
+				-ms-animation-delay: 3s;
+				animation-delay: 3s;
+				opacity: 0;
+				border-bottom: none;
+			}
 		
 		#naver {
 		-moz-backface-visibility: hidden;

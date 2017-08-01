@@ -9,19 +9,19 @@
 	</head>
 	<body class="loading">
 		<ul id="loader" class="icon fa-spinner fa-pulse fa-3x" style="opacity: 1;color: #2B2B2B;"></ul>
-		
 		<div id="wrapper">
 			<div id="bgcolor"></div>
 			<div id="bg"></div>
 			<div id="overlay"></div>
 			<div id="main">
+				<div id="langs"><a id="switcher" class="icon fa-toggle-on"> En</a></div>
 				<nav id="naver">
 					<ul>
 						<li><a id="navhome" class="icon fa-home" title="HOME"></a></li>
 						<li><a id="nava" class="icon fa-abyss" title="Abyss"></a></li>
 						<li><a id="navb" class="icon fa-beacon" title="Beacon"></a></li>
 						<li><a id="navc" class="icon fa-cooperation" title="Cooperation"></a></li>
-						<li><a id="navd" class="icon fa-demo" title="DEMO"></a></li>
+						<li><a id="navd" class="icon fa-demo" title="DEMOs"></a></li>
 					</ul>
 				</nav>
 				<header id="header">
@@ -31,21 +31,26 @@
 		<script>
 			window.onload = function() {
 				document.body.className = '';
-				inimousewheel();
+
 				document.getElementById("header").innerHTML=pages[0];
-				setTimeout("clearheaderanimation()",4000)
+				setTimeout("clearheaderanimation()",5000)
 			}
 			window.ontouchmove = function() { return false; }
 			function changebg() {
 				document.getElementById("bgcolor").style.backgroundColor="#FF0000";
 			}
-			
 			function clearheaderanimation(){
 				document.getElementById("headeranimat").disabled=true;
 				document.getElementById("header").style.opacity=1;
+			//清除loading图标
 				var clearloader=document.getElementById("loader");
 				clearloader.remove(clearloader.selectedIndex);
+			//ini滚动与翻页
+				inimousewheel();
+				ininaver();
+				iniswitcher();
 			}
+			
 		</script>
 		<script type="text/javascript" src="js/ie/bgie.js" ></script>
 		<script type="text/javascript" src="js/pagescroll.js" ></script>

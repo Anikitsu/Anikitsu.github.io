@@ -716,18 +716,16 @@
 				}
 /*header content*/
 	.article{
-		padding-top: 5em;
-		width: 800px;
 		text-align: center;
 		margin: 0 auto;
 	}
 		.article-container{
-			margin: auto 50px auto;
-			width: 800px;
+			padding-top: 3em;
+			width: 700px;
 			height: auto;
-			float: left;
 			display: inline-block;
 			text-align: left;
+			position: relative;
 		}
 			.article-container p{
 				font-weight: 400;
@@ -752,9 +750,33 @@
 				content:"\5D";
 				right:-0.3em;
 			}
-
+		.img-container{
+			display: inline-block;
+			position: absolute;
+			width: 350px;
+			height: 350px;
+		}
+			.img-inset{
+				width: 350px;
+				height: 350px;
+				opacity: 0.7;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				border-radius:5%;
+				z-index: -10;
+			}
+			.img-outset{
+				width: 170px;
+				height: 170px;
+				opacity: 0.8;
+				position: absolute;
+				left: 36%;
+				top: 10%;
+				z-index: 10;
+			}
 	.demo-cabinet{
-		padding-top: 5em;
+		padding-top: 3em;
 		height: auto;
 		width: 900px;
 		text-align: center;

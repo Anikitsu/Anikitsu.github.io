@@ -91,7 +91,7 @@
 				font-size: 12pt;
 			}
 			#naver {
-				right: 5em;
+				right: 2em;
 			}
 		/* BG */
 
@@ -161,9 +161,12 @@
 		}
 
 		#bg {
-
 			width: 2250px;
 		}
+	.article-container{
+		width: 600px;
+	}
+	
 	.demo-cabinet{
 		width: 645px;
 	}
@@ -199,8 +202,15 @@
 			}
 			
 		/* BG */
-
-			@-moz-keyframes bg {
+		#bg {
+		-moz-animation: none;
+		-webkit-animation: none;
+		-ms-animation: none;
+		animation: none;
+		}
+		
+		
+		@-moz-keyframes bg {
 				0% {
 					-moz-transform: translate3d(0,0,0);
 					-webkit-transform: translate3d(0,0,0);
@@ -215,7 +225,7 @@
 					transform: translate3d(-300px,0,0);
 				}
 
-	}
+		}
 
 		@-webkit-keyframes bg {
 			0% {
@@ -273,9 +283,14 @@
 	/* Header */
 
 		#header h1 {
+			font-size: 3em;
+		}
+		#header h2 {
 			font-size: 2.5em;
 		}
-
+		#header h3 {
+			font-size: 1.2em;
+		}
 		#header p {
 			font-size: 1em;
 		}
@@ -294,7 +309,23 @@
 			#naver a:active {
 				font-size: 10pt;
 			}
-			
+	.article-container{
+		padding-top: 2em;
+		width: 450px;
+	}
+		.img-container{
+			width: 262.5px;
+			height: 262.5px;
+		}
+			.img-inset{
+				width: 262.5px;
+				height: 262.5px;
+			}
+			.img-outset{
+				width: 127.5px;
+				height: 127.5px;
+			}
+	
 	.demo-cabinet{
 		width: 440px;
 	}
@@ -318,9 +349,17 @@
 /* Mobile (Portrait) */
 
 	@media screen and (max-width: 480px) {
-
+			body, input, select, textarea {
+				font-size: 9pt;
+			}
 		/* BG */
-
+		#bg {
+		-moz-animation: none;
+		-webkit-animation: none;
+		-ms-animation: none;
+		animation: none;
+		}
+		
 			@-moz-keyframes bg {
 				0% {
 					-moz-transform: translate3d(0,0,0);
@@ -392,10 +431,18 @@
 		}
 
 	/* Header */
-		#header nav a {
+		/*#header {
+			font-size: 2em;
+		}
+
+		#header p {
 			font-size: 1em;
 		}
+		#header nav a {
+			font-size: 1em;
+		}*/
 		#naver {
+			top: 25%;
 			right: 1em;
 			font-size: 7pt;
 		}
@@ -406,23 +453,40 @@
 
 			#naver a:active {
 				font-size: 7pt;
-			}  
+			}
+	.article-container{
+		padding-top: 2em;
+		width: 360px;
+	}
+		.img-container{
+			width: 175px;
+			height: 175px;
+		}
+			.img-inset{
+				width: 175px;
+				height: 175px;
+			}
+			.img-outset{
+				width: 85px;
+				height: 85px;
+			}
+	
 	.demo-cabinet{
-		width: 420px;
+		width: 320px;
 	}
 		.demo-container{
 			margin: auto 5px auto;
-			width: 200px;
+			width: 150px;
 		}
 			.demo-container a div{
-				width: 175px;
-				top: -175px;
+				width: 131.25px;
+				top: -131.25px;
 				right: 0;
 			}
 			.demo-img{
 				position: relative;
-				height: 200px;
-				width: 175px;
+				height: 150px;
+				width: 131.25px;
 			}
 			
 }

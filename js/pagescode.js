@@ -36,8 +36,8 @@ pagesEn[2]='<h2>Braggart</h2>'+
 					'<p class="icon fa-circle"> Fan of Javascript(native)</p>'+
 					'<p class="icon fa-circle"> Fan of canvas & WebGL</p>'+
 					'<p class="icon fa-circle"> SPA favor (Single-Page-Application of course)</p>'+
-					'<p class="icon fa-circle"> Have a mobile APP-  <a href="https://github.com/Aniki-Chen/Mobile-Geolocaton-to-Server">GeoSafty</a></p>'+
-					'<p class="icon fa-circle"> Know how to use Photoshop (check Ch version for more)</p>'+
+					'<p class="icon fa-circle"> Built a mobile APP-  <a href="https://github.com/Aniki-Chen/Mobile-Geolocaton-to-Server">GeoSafty</a></p>'+
+					'<p class="icon fa-circle"> Know how to use Photoshop</p>'+
 					'<div class="img-container" style="bottom: -1em; right: 0em;">'+
 						'<img class="img-inset" src="css/images/painset.png" style="left: 0em; top: 0em;"/>'+
 						'<img class="img-outset fa-pulse" src="css/images/paoutset.png" style="left: 36%; top: 10%;"/>'+
@@ -98,9 +98,9 @@ pagesZh[1]='<h2>基本属性</h2>'+
 				'<div class="article-container">'+
 					'<p class="icon fa-circle"> 生日90.08.18 (狮子座)</p>'+
 					'<p class="icon fa-circle"> 2014年毕业于哈尔滨工程大学</p>'+
-					'<p class="icon fa-circle"> 现居哈尔滨</p>'+
 					'<p class="icon fa-circle"> 喜欢自己动手</p>'+
 					'<p class="icon fa-circle"> 业余音乐制作人</p>'+
+					'<p class="icon fa-circle"> 做东西=满足</p>'+
 					'<div class="img-container" style="bottom: -1em; right: 0em;">'+
 						'<img class="img-inset" src="css/images/painset.png" style="left: 0em; top: 0em;"/>'+
 						'<img class="img-outset fa-pulse" src="css/images/paoutset.png" title="咳，这可不是动图" style="left: 36%; top: 10%;"/>'+
@@ -116,10 +116,10 @@ pagesZh[2]='<h2>一名修炼中的前端</h2>'+
 			'<div class="article">'+
 				'<div class="article-container">'+
 					'<p class="icon fa-circle"> Javascript，原生的很6</p>'+
-					'<p class="icon fa-circle"> Canvas和WebGL，喜欢</p>'+
-					'<p class="icon fa-circle"> 单页Web应用最棒了</p>'+
-					'<p class="icon fa-circle"> 做过一个手机APP-  <a href="https://github.com/Aniki-Chen/Mobile-Geolocaton-to-Server">GeoSafty</a></p>'+
-					'<p class="icon fa-circle"> 诚接各类文件扫描件修改，不吹不黑，包无破绽</p>'+
+					'<p class="icon fa-circle"> 用了jQuery，爽得飞起</p>'+
+					'<p class="icon fa-circle"> Canvas和WebGL能精通就好了</p>'+
+					'<p class="icon fa-circle"> 倾向于构建单页Web应用</p>'+
+					'<p class="icon fa-circle"> 做了一个手机APP-  <a href="https://github.com/Aniki-Chen/Mobile-Geolocaton-to-Server">GeoSafty</a></p>'+
 					'<div class="img-container" style="bottom: -1em; right: 0em;">'+
 						'<img class="img-inset" src="css/images/painset.png" style="left: 0em; top: 0em;"/>'+
 						'<img class="img-outset fa-pulse" src="css/images/paoutset.png" style="left: 36%; top: 10%;"/>'+
@@ -135,10 +135,10 @@ pagesZh[3]='<h2>请雇我吧！</h2>'+
 			'<div class="article">'+
 				'<div class="article-container">'+
 					'<p>希望工作地点在北京</p>'+
-					'<p>能有好的成长空间</p>'+
-					'<p>能有好的工作氛围</p>'+
-					'<p>至于对薪金的最低要求:</p>'+
-					'<p>够吃够住，能交上社保 Orz</p>'+
+					'<p>能去开发游戏是最好的</p>'+
+					'<p>能去制作各种花哨交互效果是上佳的</p>'+
+					'<p>能去实现设计师的期望，也是乐此不疲的</p>'+
+					'<p>薪金要求：够吃够住，交得上社保</p>'+
 					'<div class="img-container" style="bottom: -1em; right: 0em;">'+
 						'<img class="img-inset" src="css/images/painset.png" style="left: 0em; top: 0em;"/>'+
 						'<img class="img-outset fa-pulse" src="css/images/paoutset.png" style="left: 36%; top: 10%;"/>'+

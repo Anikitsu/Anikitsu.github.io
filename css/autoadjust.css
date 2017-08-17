@@ -202,12 +202,6 @@
 			}
 			
 		/* BG */
-		#bg {
-		-moz-animation: none;
-		-webkit-animation: none;
-		-ms-animation: none;
-		animation: none;
-		}
 		
 		
 		@-moz-keyframes bg {
@@ -353,12 +347,7 @@
 				font-size: 9pt;
 			}
 		/* BG */
-		#bg {
-		-moz-animation: none;
-		-webkit-animation: none;
-		-ms-animation: none;
-		animation: none;
-		}
+		
 		
 			@-moz-keyframes bg {
 				0% {
